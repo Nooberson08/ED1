@@ -1,7 +1,0 @@
-
-int main (){
-
-    pirntf("hello world");
-    return 0;
-
-}
