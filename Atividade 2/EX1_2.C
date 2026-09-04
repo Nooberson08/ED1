@@ -18,7 +18,7 @@
 #define RAIO_JOGADOR   20.0f
 #define TOTAL_MOEDAS   15
 
-// enum: cada valor representa uma categoria de moeda (Exercício 2: adicionado MOEDA_DIAMANTE)
+
 typedef enum {
     MOEDA_BRONZE,
     MOEDA_PRATA,
@@ -32,10 +32,10 @@ typedef struct {
     TipoMoeda tipo;
     int       valor;
     bool      coletada;
-    float     tempoColeta; // Exercício 1: guarda o instante em que a moeda foi coletada
+    float     tempoColeta; 
 } Moeda;
 
-/* devolve a cor associada a cada tipo do enum (Exercício 2: adicionada cor para DIAMANTE) */
+
 Color corDaMoeda(TipoMoeda tipo) {
     switch (tipo) {
         case MOEDA_BRONZE:   return (Color){160, 90, 40, 255};
@@ -46,29 +46,29 @@ Color corDaMoeda(TipoMoeda tipo) {
     }
 }
 
-/* devolve o valor em pontos associado a cada tipo do enum (Exercício 2: adicionado valor do DIAMANTE) */
+
 int valorDaMoeda(TipoMoeda tipo) {
     switch (tipo) {
         case MOEDA_BRONZE:   return 5;
         case MOEDA_PRATA:    return 10;
         case MOEDA_OURO:     return 25;
-        case MOEDA_DIAMANTE: return 50; // Vale 50 pontos
+        case MOEDA_DIAMANTE: return 50; 
         default:             return 0;
     }
 }
 
-/* cria o vetor dinâmico de moedas, sorteando tipo e posição de cada uma */
+
 Moeda *criarMoedas(int quantidade) {
     Moeda *moedas = (Moeda *)malloc(quantidade * sizeof(Moeda));
     if (moedas == NULL) return NULL;
 
     for (int i = 0; i < quantidade; i++) {
-        Moeda *m = (moedas + i); // ponteiro para o i-ésimo elemento
+        Moeda *m = (moedas + i); 
         m->pos       = (Vector2){ GetRandomValue(30, LARGURA_JANELA - 30),
                                   GetRandomValue(30, ALTURA_JANELA - 30) };
         m->raio      = 10.0f;
         
-        // Exercício 2: Sorteio do tipo com maior raridade para o Diamante (10% de chance)
+        
         int chance = GetRandomValue(0, 9);
         if (chance == 0) {
             m->tipo = MOEDA_DIAMANTE;
@@ -78,12 +78,12 @@ Moeda *criarMoedas(int quantidade) {
 
         m->valor       = valorDaMoeda(m->tipo);
         m->coletada    = false;
-        m->tempoColeta = 0.0f; // Exercício 1: inicializa o tempo de coleta
+        m->tempoColeta = 0.0f; 
     }
     return moedas;
 }
 
-/* recebe um PONTEIRO para a moeda: marca como coletada diretamente no vetor original */
+
 bool tentarColetar(Moeda *m, Vector2 posJogador, float raioJogador) {
     if (m->coletada) return false;
 
@@ -94,7 +94,7 @@ bool tentarColetar(Moeda *m, Vector2 posJogador, float raioJogador) {
 
     if (distancia <= somaRaios) {
         m->coletada = true;
-        m->tempoColeta = GetTime(); // Exercício 1: registra o momento exato da coleta
+        m->tempoColeta = GetTime(); 
         return true;
     }
     return false;
@@ -114,7 +114,7 @@ int main(void) {
     Vector2 jogador = { LARGURA_JANELA / 2.0f, ALTURA_JANELA / 2.0f };
     int pontuacao = 0;
 
-    Moeda *moedas = criarMoedas(TOTAL_MOEDAS); // vetor dinâmico de struct
+    Moeda *moedas = criarMoedas(TOTAL_MOEDAS); 
 
     while (!WindowShouldClose()) {
 
@@ -124,17 +124,17 @@ int main(void) {
         if (IsKeyDown(KEY_UP))    jogador.y -= vel;
         if (IsKeyDown(KEY_DOWN))  jogador.y += vel;
 
-        // percorre o vetor com aritmética de ponteiros: (moedas + i)
+        
         for (int i = 0; i < TOTAL_MOEDAS; i++) {
             Moeda *m = (moedas + i);
 
-            // Exercício 1: Verifica se a moeda já pode reaparecer (passaram-se 3 segundos)
+            
             if (m->coletada && (GetTime() - m->tempoColeta >= 3.0f)) {
                 m->coletada = false;
                 m->pos = (Vector2){ GetRandomValue(30, LARGURA_JANELA - 30),
                                     GetRandomValue(30, ALTURA_JANELA - 30) };
                 
-                // Opcional: Re-sorteia o tipo ao reaparecer mantendo a raridade
+                
                 int chance = GetRandomValue(0, 9);
                 if (chance == 0) {
                     m->tipo = MOEDA_DIAMANTE;
@@ -164,8 +164,7 @@ int main(void) {
         EndDrawing();
     }
 
-    free(moedas); // libera o vetor dinâmico
-
+    free(moedas); 
     CloseWindow();
     return 0;
 }
