@@ -17,7 +17,7 @@ typedef struct {
 } Bola;
 
 
-//CRIA A MATRIZ DINÂMICA
+
    
 
 int **criarMatriz(int linhas, int colunas)
@@ -42,7 +42,7 @@ int **criarMatriz(int linhas, int colunas)
             return NULL;
         }
 
-        //Começamos todas as células com 0.
+        
          
         for (int j = 0; j < colunas; j++) {
             matriz[i][j] = 0;
@@ -53,7 +53,7 @@ int **criarMatriz(int linhas, int colunas)
 }
 
 
-//LIBERA A MATRIZ
+
 
 void liberarMatriz(int **matriz, int linhas)
 {
@@ -65,7 +65,7 @@ void liberarMatriz(int **matriz, int linhas)
 }
 
 
-// CRIA AS BOLAS
+
   
 
 Bola *criarBolas(int quantidade)
@@ -92,7 +92,7 @@ Bola *criarBolas(int quantidade)
             GetRandomValue(-3, 3)
         };
 
-        //Evita que a bola fique parada.
+        
 
         if (b->vel.x == 0) {
             b->vel.x = 2;
@@ -116,14 +116,14 @@ Bola *criarBolas(int quantidade)
 }
 
 
-//ATUALIZA A BOLA
+
 
 void atualizarBola(Bola *b)
 {
     b->pos.x += b->vel.x;
     b->pos.y += b->vel.y;
 
-    //Colisão com as laterais.
+    
      
 
     if (b->pos.x - b->raio < 0 ||
@@ -132,7 +132,7 @@ void atualizarBola(Bola *b)
         b->vel.x *= -1;
     }
 
-    //Colisão com o topo e o fundo.
+    
     if (b->pos.y - b->raio < 0 ||
         b->pos.y + b->raio > ALTURA_JANELA) {
 
@@ -141,7 +141,7 @@ void atualizarBola(Bola *b)
 }
 
 
-    //DESENHA A MATRIZ
+    
   
 
 void desenharMatriz(
@@ -159,7 +159,7 @@ void desenharMatriz(
 
             
             
-            //Se a célula foi visitada, usamos uma cor diferente.
+            
 
             if (matriz[i][j] == 1) {
 
@@ -182,7 +182,7 @@ void desenharMatriz(
                 );
             }
 
-            //Desenha as linhas da grade.
+            
 
             DrawRectangleLines(
                 x,
@@ -196,7 +196,7 @@ void desenharMatriz(
 }
 
 
-//MARCA A CÉLULA VISITADA
+
 
 
 void marcarCelulaVisitada(
@@ -226,7 +226,7 @@ void marcarCelulaVisitada(
 }
 
 
-//CONTA AS CÉLULAS VISITADAS
+
 
 int contarCelulasVisitadas(
     int **matriz,
@@ -250,7 +250,7 @@ int contarCelulasVisitadas(
 }
 
 
-//FUNÇÃO PRINCIPAL
+
 
 int main(void)
 {
@@ -265,7 +265,7 @@ int main(void)
     SetTargetFPS(60);
 
 
-    //CRIA A MATRIZ
+    
 
     int linhas = LINHAS;
     int colunas = COLUNAS;
@@ -283,7 +283,7 @@ int main(void)
     }
 
 
-    //CRIA AS BOLAS
+    
 
     int quantidadeBolas = 12;
 
@@ -304,25 +304,23 @@ int main(void)
     }
 
 
-    //LOOP PRINCIPAL
+    
 
     while (!WindowShouldClose()) {
 
 
-        //ATUALIZA AS BOLAS
+       
 
         for (int i = 0; i < quantidadeBolas; i++) {
 
-            /*
-             * bolas + i é equivalente a &bolas[i].
-             */
+            
 
             atualizarBola(
                 bolas + i
             );
 
 
-            //MARCA A CÉLULA VISITADA
+            
 
             marcarCelulaVisitada(
                 matriz,
@@ -333,7 +331,7 @@ int main(void)
         }
 
 
-        //CONTA AS CÉLULAS VISITADAS
+        
 
         int visitadas = contarCelulasVisitadas(
             matriz,
@@ -342,7 +340,7 @@ int main(void)
         );
 
 
-        //DESENHA
+        
 
         BeginDrawing();
 
@@ -368,7 +366,7 @@ int main(void)
         }
 
 
-        //MOSTRA O CONTADOR
+        
 
         DrawRectangle(
             0,
@@ -394,7 +392,7 @@ int main(void)
     }
 
 
-    //LIBERA A MEMÓRIA
+    
 
     free(bolas);
 
@@ -404,7 +402,7 @@ int main(void)
     );
 
 
-    //FECHA A JANELA
+    
 
     CloseWindow();
 
