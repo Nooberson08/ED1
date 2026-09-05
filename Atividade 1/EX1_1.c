@@ -12,7 +12,7 @@ typedef struct {
 } Bola;
 
 
-//Cria o vetor inicial de bolas
+
 Bola *criarBolas(int quantidade)
 {
     Bola *bolas = (Bola *)malloc(quantidade * sizeof(Bola));
@@ -35,7 +35,7 @@ Bola *criarBolas(int quantidade)
             GetRandomValue(-3, 3)
         };
 
-        //Evita bola parada
+       
         if (b->vel.x == 0)
             b->vel.x = 2;
 
@@ -56,20 +56,20 @@ Bola *criarBolas(int quantidade)
 }
 
 
-//Atualiza a posição da bola
+
 void atualizarBola(Bola *b)
 {
     b->pos.x += b->vel.x;
     b->pos.y += b->vel.y;
 
-    //Colisão com as laterais
+    
     if (b->pos.x - b->raio < 0 ||
         b->pos.x + b->raio > LARGURA_JANELA) {
 
         b->vel.x *= -1;
     }
 
-    //Colisão com o topo e o fundo
+    
     if (b->pos.y - b->raio < 0 ||
         b->pos.y + b->raio > ALTURA_JANELA) {
 
@@ -78,7 +78,7 @@ void atualizarBola(Bola *b)
 }
 
 
-//Adiciona uma nova bola usando realloc
+
 void adicionarBola(Bola **bolas, int *quantidadeBolas)
 {
     int novaQuantidade = *quantidadeBolas + 1;
@@ -95,7 +95,7 @@ void adicionarBola(Bola **bolas, int *quantidadeBolas)
     *bolas = temp;
     *quantidadeBolas = novaQuantidade;
 
-    // A nova bola será a última
+   
     Bola *b = *bolas + (novaQuantidade - 1);
 
     b->pos = (Vector2){
@@ -125,17 +125,17 @@ void adicionarBola(Bola **bolas, int *quantidadeBolas)
 }
 
 
-//Remove a última bola usando realloc
+
 void removerBola(Bola **bolas, int *quantidadeBolas)
 {
-    /* Não deixa a quantidade ficar negativa */
+    
     if (*quantidadeBolas <= 0) {
         return;
     }
 
     int novaQuantidade = *quantidadeBolas - 1;
 
-    //Se não houver mais bolas, libera a memória
+    
     if (novaQuantidade == 0) {
 
         free(*bolas);
@@ -162,7 +162,7 @@ void removerBola(Bola **bolas, int *quantidadeBolas)
 
 int main(void)
 {
-    //Inicializa a janela
+    
     InitWindow(
         LARGURA_JANELA,
         ALTURA_JANELA,
@@ -172,10 +172,10 @@ int main(void)
     SetTargetFPS(60);
 
 
-    //Quantidade inicial definida no exercício
+    
     int quantidadeBolas = 12;
 
-    /* Cria as bolas */
+    
     Bola *bolas = criarBolas(quantidadeBolas);
 
     if (bolas == NULL) {
@@ -184,7 +184,7 @@ int main(void)
     }
 
 
-    //Loop principal
+    
     while (!WindowShouldClose()) {
 
 
@@ -215,13 +215,13 @@ int main(void)
         }
 
 
-        //Desenho
+       
         BeginDrawing();
 
         ClearBackground(RAYWHITE);
 
 
-        //Desenha todas as bolas
+        
         for (int i = 0; i < quantidadeBolas; i++) {
 
             DrawCircleV(
@@ -232,7 +232,7 @@ int main(void)
         }
 
 
-        //Mostra a quantidade de bolas
+        
         DrawText(
             TextFormat(
                 "Quantidade de bolas: %d",
@@ -245,7 +245,7 @@ int main(void)
         );
 
 
-        //Instruções
+        
         DrawText(
             "ESPACO = adicionar bola",
             20,
@@ -267,10 +267,10 @@ int main(void)
     }
 
 
-    //Libera a memória
+    
     free(bolas);
 
-    //Fecha a janela
+    
     CloseWindow();
 
     return 0;

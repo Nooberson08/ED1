@@ -1,4 +1,3 @@
-
 #include "raylib.h"
 #include <stdlib.h>
 #include <time.h>
@@ -8,10 +7,12 @@
 #define RAIO_JOGADOR   20.0f
 #define TOTAL_MOEDAS   15
 
+
 typedef enum {
     MOEDA_BRONZE,
     MOEDA_PRATA,
-    MOEDA_OURO
+    MOEDA_OURO,
+    MOEDA_DIAMANTE
 } TipoMoeda;
 
 typedef struct {
@@ -25,19 +26,21 @@ typedef struct {
 
 Color corDaMoeda(TipoMoeda tipo) {
     switch (tipo) {
-        case MOEDA_BRONZE: return (Color){160, 90, 40, 255};
-        case MOEDA_PRATA:  return (Color){190, 190, 190, 255};
-        case MOEDA_OURO:   return GOLD;
-        default:           return WHITE;
+        case MOEDA_BRONZE:   return (Color){160, 90, 40, 255};
+        case MOEDA_PRATA:    return (Color){190, 190, 190, 255};
+        case MOEDA_OURO:     return GOLD;
+        case MOEDA_DIAMANTE: return SKYBLUE; 
+        default:             return WHITE;
     }
 }
 
 int valorDaMoeda(TipoMoeda tipo) {
     switch (tipo) {
-        case MOEDA_BRONZE: return 5;
-        case MOEDA_PRATA:  return 10;
-        case MOEDA_OURO:   return 25;
-        default:           return 0;
+        case MOEDA_BRONZE:   return 5;
+        case MOEDA_PRATA:    return 10;
+        case MOEDA_OURO:     return 25;
+        case MOEDA_DIAMANTE: return 50; 
+        default:             return 0;
     }
 }
 
@@ -50,9 +53,17 @@ Moeda *criarMoedas(int quantidade) {
         m->pos       = (Vector2){ GetRandomValue(30, LARGURA_JANELA - 30),
                                   GetRandomValue(30, ALTURA_JANELA - 30) };
         m->raio      = 10.0f;
-        m->tipo      = (TipoMoeda)GetRandomValue(MOEDA_BRONZE, MOEDA_OURO);
-        m->valor     = valorDaMoeda(m->tipo);
-        m->coletada  = false;
+        
+        
+        int chance = GetRandomValue(0, 9);
+        if (chance == 0) {
+            m->tipo = MOEDA_DIAMANTE;
+        } else {
+            m->tipo = (TipoMoeda)GetRandomValue(MOEDA_BRONZE, MOEDA_OURO);
+        }
+
+        m->valor       = valorDaMoeda(m->tipo);
+        m->coletada    = false;
         m->tempoColeta = 0.0f;
     }
     return moedas;
@@ -82,7 +93,7 @@ void desenharMoeda(Moeda *m) {
 int main(void) {
     srand((unsigned int)time(NULL));
 
-    InitWindow(LARGURA_JANELA, ALTURA_JANELA, "Exercicio 1 - Moedas que reaparecem");
+    InitWindow(LARGURA_JANELA, ALTURA_JANELA, "Exercicios 1 e 2 Combinados");
     SetTargetFPS(60);
 
     Vector2 jogador = { LARGURA_JANELA / 2.0f, ALTURA_JANELA / 2.0f };
@@ -105,7 +116,13 @@ int main(void) {
                 m->coletada = false;
                 m->pos = (Vector2){ GetRandomValue(30, LARGURA_JANELA - 30),
                                     GetRandomValue(30, ALTURA_JANELA - 30) };
-                m->tipo = (TipoMoeda)GetRandomValue(MOEDA_BRONZE, MOEDA_OURO);
+                
+                int chance = GetRandomValue(0, 9);
+                if (chance == 0) {
+                    m->tipo = MOEDA_DIAMANTE;
+                } else {
+                    m->tipo = (TipoMoeda)GetRandomValue(MOEDA_BRONZE, MOEDA_OURO);
+                }
                 m->valor = valorDaMoeda(m->tipo);
             }
 
