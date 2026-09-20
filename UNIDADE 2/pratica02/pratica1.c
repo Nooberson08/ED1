@@ -8,7 +8,7 @@ typedef struct {
 } Funcionario;
 
 void imprime (FILE*funcionarios, Funcionario f){
-    fprintf(funcionarios, "Nome: %s\n", f.nome);
+    fprintf(funcionarios, "Nome: %s", f.nome);
     fprintf(funcionarios, "ID: %s\n", f.id);
     fprintf(funcionarios, "Salario: %.2f\n", f.salario);
 } //usada para gravar os dados do funcionario no arquivo de texto
