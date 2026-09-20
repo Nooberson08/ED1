@@ -1,0 +1,15 @@
+Nome: jose
+Nota: 23.00
+
+Nome: rita
+Nota: 34.00
+
+Nome: josatan
+Nota: 54.00
+
+Nome: jardel
+Nota: 12.00
+
+Nome: nicolas
+Nota: 34.00
+
