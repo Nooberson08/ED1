@@ -1,0 +1,9 @@
+Nome: Melancia
+Preco: 20.00
+
+Nome: maca
+Preco: 5.00
+
+Nome: jaca
+Preco: 12.50
+
