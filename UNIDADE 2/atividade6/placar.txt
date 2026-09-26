@@ -2,3 +2,6 @@ Jogador: 58
 Jogador: 88
 Jogador: 68
 Jogador: 69
+Jogador1: 102
+Jogador1: 102
+Jogador1: 92
