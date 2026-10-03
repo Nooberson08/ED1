@@ -152,7 +152,7 @@ int main() {
     fprintf(estatistica, "Total de Trocas: %d\n", trocas);
     fprintf(estatistica, "Total de Passos/Particoes: %d\n", passo);
     fprintf(estatistica, "==================================================\n");
-    fprintf(estatistica, "Tempo de execucao: %lf milissegundos", ((double)t)/((CLOCKS_PER_SEC/1000)));
+    fprintf(estatistica, "Tempo de execucao: %.4lf milissegundos\n", ((double)t / CLOCKS_PER_SEC) * 1000.0);
 
     fclose(estatistica);
 
@@ -188,8 +188,7 @@ int main() {
     printf("Total de Trocas: %d\n", trocas);
     printf("Total de Passos/Particoes: %d\n", passo);
     printf("==================================================\n");
-    printf ("Tempo de execucao: %lf milissegundos", ((double)t)/((CLOCKS_PER_SEC/1000)));
-
+    printf ("Tempo de execucao: %.4lf milissegundos\n", ((double)t / CLOCKS_PER_SEC) * 1000.0);
     // Libera a memória alocada
     free(vetor);
 
