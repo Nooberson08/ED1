@@ -74,7 +74,7 @@ void quicksort(int values[], int begin, int end, int total_N, FILE *estatistica)
 
 int main() {
 
-
+    clock_t t;
     int N;
     int i;
     
@@ -97,7 +97,7 @@ int main() {
         fclose(arq);
         
         // abre o arquivo recém-criado para leitura
-    arq = fopen("Dados.txt", "r");
+    arq = fopen("Dados10.txt", "r");
     if (arq == NULL) {
         printf("Erro ao abrir o arquivo para leitura!\n");
         return 1;
@@ -134,9 +134,10 @@ int main() {
     }
     fprintf(estatistica, "\n");
 
+    t= clock();//armazena o tempo
     // Executa a ordenação Quick Sort (passando o arquivo de estatística)
     quicksort(vetor, 0, N, N, estatistica);
-
+    t= clock() - t;//tempo final - tempo inicial
     // Salva o array após a ordenação no arquivo
     fprintf(estatistica, "\nArray ordenado: ");
     for (int k = 0; k < N; k++) {
@@ -150,7 +151,7 @@ int main() {
     fprintf(estatistica, "Total de Trocas: %d\n", trocas);
     fprintf(estatistica, "Total de Passos/Particoes: %d\n", passo);
     fprintf(estatistica, "==================================================\n");
-
+    fprintf(estatistica, "Tempo de execucao: %lf milissegundos", ((double)t)/((CLOCKS_PER_SEC/1000)));
 
     fclose(estatistica);
 
@@ -186,6 +187,7 @@ int main() {
     printf("Total de Trocas: %d\n", trocas);
     printf("Total de Passos/Particoes: %d\n", passo);
     printf("==================================================\n");
+    printf ("Tempo de execucao: %lf milissegundos", ((double)t)/((CLOCKS_PER_SEC/1000)));
     
     // Libera a memória alocada
     free(vetor);
