@@ -7,7 +7,7 @@ typedef struct {
     float salario;
 } Funcionario;
 
-void imprime (FILE*funcionarios, Funcionario f){
+void imprimir (FILE*funcionarios, Funcionario f){
     fprintf(funcionarios, "Nome: %s", f.nome);
     fprintf(funcionarios, "ID: %s\n", f.id);
     fprintf(funcionarios, "Salario: %.2f\n", f.salario);
